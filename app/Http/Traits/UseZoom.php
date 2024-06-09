@@ -49,9 +49,9 @@ trait UseZoom
 
     function generateZoomAccessToken()
     {
-        $apiKey = '1XGmh5U6TwiISWBfVHKTqA';
-        $apiSecret = 'zmOn7DQ4vHH4ArxwI8UkIakUNsxITm0P';
-        $account_id = 'cM3FcIPZRQWg9-58Yqzn1w';
+        $apiKey = env('ZOOM_CLIENT_KEY');
+        $apiSecret = env('ZOOM_CLIENT_SECRET');
+        $account_id = env('ZOOM_ACCOUNT_ID');
 
         $base64Credentials = base64_encode("$apiKey:$apiSecret");
 
