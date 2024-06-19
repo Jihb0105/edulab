@@ -19,6 +19,7 @@ class ApprovalController extends Controller
             }
         })
         ->whereNot('id', 1)
+        ->whereNot('type', 0)
         ->paginate(10);
 
         return view('admins.users.index', compact('lecturers'));
@@ -49,11 +50,10 @@ class ApprovalController extends Controller
 
     public function reject(Request $request, User $user)
     {
-
         $user->approved = 2;
-        $user->save();
+        $user->save(); 
 
-        $user->notify(new UserRejectedNotification($user));
+        $user->notify(new UserRejectedNotification($user, $request->reject_reason));
 
         return redirect()->route('admins.users.index')->with('success', 'Instructor has been rejected.');
 

@@ -6,19 +6,24 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use App\Models\User;
 
 class UserRejectedNotification extends Notification
 {
     use Queueable;
+
+    protected $user;
+    protected $rejectReason;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(Request $request)
+    public function __construct(User $user, $rejectReason)
     {
-        $rejectReason = $request->reject_reason;
+        $this->user = $user;
+        $this->rejectReason = $rejectReason;
     }
 
     /**
@@ -42,7 +47,7 @@ class UserRejectedNotification extends Notification
     {
         return (new MailMessage)
                     ->line('Your application to register as an EduLab instructor has been rejected.')
-                    ->line(''. $rejectReason)
+                    ->line($this->rejectReason)
                     ->action('Register here again', route('register'))
                     ->line('Thank you for using our application!');
     }
