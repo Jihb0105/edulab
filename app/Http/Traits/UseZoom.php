@@ -49,13 +49,13 @@ trait UseZoom
 
     function generateZoomAccessToken()
     {
-        $apiKey = env('ZOOM_CLIENT_KEY');
-        $apiSecret = env('ZOOM_CLIENT_SECRET');
-        $account_id = env('ZOOM_ACCOUNT_ID');
+        $apiKey = '1XGmh5U6TwiISWBfVHKTqA';
+        $apiSecret = 'zmOn7DQ4vHH4ArxwI8UkIakUNsxITm0P';
+        $account_id = 'cM3FcIPZRQWg9-58Yqzn1w';
 
         $base64Credentials = base64_encode("$apiKey:$apiSecret");
 
-        $client = new Client();
+        $client = new Client(); 
 
         $response = $client->request('POST', 'https://zoom.us/oauth/token', [
             'headers' => [
@@ -194,7 +194,7 @@ trait UseZoom
                 ],
                 'json' => $requestBody,
                 'http_errors' => false,
-            ]);
+            ]); 
         
             $statusCode = $response->getStatusCode();
             $body = $response->getBody()->getContents();
